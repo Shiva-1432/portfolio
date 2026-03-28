@@ -8,11 +8,25 @@ export default function SmoothScrollProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // We've disabled JS smooth scrolling (Lenis) to fix the input delay.
-  // The app will now use native, zero-delay browser scrolling!
   useEffect(() => {
-    // Intentionally empty. 
-    // Smooth scrolling is still handled natively via scroll-behavior: smooth in our CSS.
+    const lenis = new Lenis({
+      lerp: 0.2,
+      wheelMultiplier: 1.2,
+      smoothWheel: true,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   return <>{children}</>;

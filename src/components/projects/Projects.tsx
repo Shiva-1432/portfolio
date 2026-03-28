@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { ExternalLink, Sparkles, Database, Hospital, FileText, ChevronRight } from "lucide-react";
 
@@ -44,6 +44,7 @@ function ProjectCard({
   project: typeof projects[0], 
   i: number 
 }) {
+  const [isMobile, setIsMobile] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -53,7 +54,16 @@ function ProjectCard({
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (isMobile) return;
+    
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -79,8 +89,8 @@ function ProjectCard({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        rotateY,
-        rotateX,
+        rotateY: isMobile ? 0 : rotateY,
+        rotateX: isMobile ? 0 : rotateX,
         transformStyle: "preserve-3d",
       }}
       className="relative flex flex-col glass group cursor-default"
@@ -91,12 +101,12 @@ function ProjectCard({
         style={{ background: project.glow }}
       />
 
-      <div className="p-8 h-full flex flex-col" style={{ transform: "translateZ(75px)" }}>
-        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${project.color} flex items-center justify-center mb-6 shadow-xl`}>
-          <project.icon className="text-white" size={28} />
+      <div className="p-6 md:p-8 h-full flex flex-col" style={{ transform: "translateZ(75px)" }}>
+        <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${project.color} flex items-center justify-center mb-6 shadow-xl`}>
+          <project.icon className="text-white" size={24} />
         </div>
 
-        <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+        <h3 className="text-xl md:text-2xl font-bold mb-3">{project.title}</h3>
         <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
           {project.description}
         </p>
@@ -114,7 +124,7 @@ function ProjectCard({
             href={project.github} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="flex-1 px-4 py-3 glass border-white/10 text-center text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 px-4 py-3 glass border-white/10 text-center text-[10px] md:text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> Github
           </a>
@@ -122,7 +132,7 @@ function ProjectCard({
             href={project.live} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="flex-1 px-4 py-3 glass border-white/10 text-center text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 px-4 py-3 glass border-white/10 text-center text-[10px] md:text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
           >
             <ExternalLink size={14} /> Demo
           </a>
@@ -135,7 +145,7 @@ function ProjectCard({
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="py-24 relative">
+    <section id="projects" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
@@ -153,9 +163,9 @@ export default function ProjectsSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-bold"
+              className="text-3xl md:text-6xl font-bold"
             >
-              Projects That <br />
+              Projects That <br className="hidden md:block" />
               <span className="text-gray-400">Define My Craft</span>
             </motion.h2>
           </div>
@@ -164,7 +174,7 @@ export default function ProjectsSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-gray-500 max-w-sm"
+            className="text-gray-500 max-w-sm text-sm md:text-base"
           >
             A collection of engineering challenges, from AI-driven databases to full-scale platform builds.
           </motion.p>
@@ -183,7 +193,7 @@ export default function ProjectsSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {projects.map((project, i) => (
             <ProjectCard 
@@ -198,4 +208,5 @@ export default function ProjectsSection() {
     </section>
   );
 }
+
 

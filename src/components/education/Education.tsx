@@ -51,48 +51,60 @@ export default function EducationSection() {
           </motion.h3>
         </div>
 
-        <div className="relative border-l-2 border-white/10 ml-4 md:ml-0 md:left-1/2">
+        {/* Timeline Spine */}
+        <div className="relative">
+          <div className="absolute left-[7px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent-purple/50 via-white/10 to-transparent" />
+
           {education.map((item, i) => (
             <motion.div
               key={item.degree}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className={`relative mb-12 flex flex-col md:flex-row items-center ${
+              transition={{ duration: 0.8, delay: i * 0.15 }}
+              className={`relative mb-16 flex flex-col md:flex-row items-center justify-between w-full ${
                 i % 2 === 0 ? "md:flex-row-reverse" : ""
               }`}
             >
-              {/* Dot */}
-              <div className="absolute left-[-9px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-accent-purple border-4 border-black z-10" />
+              {/* Center Dot */}
+              <motion.div 
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + (i * 0.15) }}
+                className="absolute left-[7px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-black border-2 border-accent-purple z-10 shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:scale-125 transition-transform" 
+              />
+
+              {/* Offset Spacer for symmetry */}
+              <div className="hidden md:block w-[45%]" />
 
               {/* Content Card */}
-              <div className={`w-full md:w-[45%] glass p-6 hover:border-accent-cyan/50 transition-all duration-300 ${
-                i % 2 === 0 ? "md:mr-auto" : "md:ml-auto"
-              }`}>
+              <div className={`w-full md:w-[45%] glass p-8 hover:border-accent-cyan/50 transition-all duration-500 group relative z-0`}>
                 <div className="flex items-center justify-between mb-4">
                   <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded ${
                     item.status === "Current" ? "bg-accent-cyan/20 text-accent-cyan" : "bg-white/10 text-gray-400"
                   }`}>
                     {item.status}
                   </span>
-                  <div className="text-gray-500 flex items-center gap-1 text-xs">
-                    <Calendar size={12} />
+                  <div className="text-gray-500 flex items-center gap-1.5 text-xs font-medium">
+                    <Calendar size={12} className="text-accent-purple" />
                     {item.duration}
                   </div>
                 </div>
 
-                <h4 className="text-xl font-bold mb-1">{item.degree}</h4>
-                <p className="text-accent-purple text-sm font-medium mb-4">{item.institution}</p>
+                <h4 className="text-xl font-bold mb-1 group-hover:text-accent-cyan transition-colors">{item.degree}</h4>
+                <p className="text-gray-400 text-sm font-light mb-5">{item.institution}</p>
                 
-                <div className="flex items-center gap-2 text-white font-bold bg-white/5 py-2 px-4 rounded-lg w-fit">
-                  <Award size={16} className="text-accent-cyan" />
+                <div className="flex items-center gap-2 text-white font-bold bg-white/5 py-2 px-4 rounded-lg w-fit border border-white/5 group-hover:border-accent-purple/30 transition-colors">
+                  <Award size={16} className="text-accent-purple" />
                   {item.score}
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+
 
       </div>
     </section>

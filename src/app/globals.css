@@ -14,8 +14,8 @@
 
 
 html {
-  scroll-behavior: smooth;
   background-color: #000;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -25,6 +25,17 @@ body {
   overflow-x: hidden;
   position: relative;
   cursor: none; /* Hide default cursor */
+  overscroll-behavior: none;
+}
+
+section {
+  scroll-margin-top: 80px;
+}
+
+@media (min-width: 768px) {
+  section {
+    scroll-margin-top: 120px;
+  }
 }
 
 /* Ensure common interactives trigger the custom cursor hover state */
