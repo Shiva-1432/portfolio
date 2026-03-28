@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SmoothScrollProvider from "@/components/common/SmoothScrollProvider";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Personal Portfolio",
+  title: "Podishetty Shivakrishna | Cloud Native & AI Researcher",
+  description: "Personal portfolio of Podishetty Shivakrishna, showcasing projects in Cloud Computing, AI-driven DBMS optimization, and Frontend Development.",
 };
 
 export default function RootLayout({
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black text-white antialiased">
-        {children}
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );

@@ -1,1 +1,100 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #1e1b4b;
+  --color-accent-purple: #a855f7;
+  --color-accent-cyan: #22d3ee;
+  --color-glass-bg: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+}
+
+:root {
+  --font-inter: "Inter", sans-serif;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  background-color: #000;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Utility */
+.glass {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 1rem;
+}
+
+.glass-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-accent-purple);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Neon Glows */
+.glow-purple {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.glow-cyan {
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes reverse-spin-slow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-reverse-spin-slow {
+  animation: reverse-spin-slow 25s linear infinite;
+}

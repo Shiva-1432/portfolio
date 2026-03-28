@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shivakrishna.vercel.app/sitemap.xml
