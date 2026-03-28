@@ -1,13 +1,17 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { ExternalLink, Sparkles, Database, Hospital, FileText } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { ExternalLink, Sparkles, Database, Hospital, FileText, ChevronRight } from "lucide-react";
+import CaseStudyCard from "./CaseStudyCard";
 
 const projects = [
   {
     title: "RL-DBMS",
     description: "Reinforcement Learning–based database optimization for hybrid cloud systems. Focused on latency reduction and resource scalability.",
+    challenge: "Traditional DBMS optimization struggles with dynamic hybrid cloud workloads, leading to inefficient resource allocation and high wait times.",
+    architecture: ["RL Agent", "Query Monitor", "State Analyzer", "Policy Optimizer"],
+    outcome: "Achieved significant reduction in query latency and improved resource throughput on complex join operations.",
     tags: ["Research", "AI", "Cloud", "Python"],
     icon: Database,
     color: "from-accent-purple to-indigo-600",
@@ -18,6 +22,9 @@ const projects = [
   {
     title: "MedShift AI",
     description: "AI-powered healthcare workflow system designed for hospital efficiency and patient care automation.",
+    challenge: "Hospital administrative systems are often fragmented, causing delays in patient processing and redundant data entry for healthcare workers.",
+    architecture: ["FastAPI Backend", "Next.js Dashboard", "ML Diagnosis Engine", "Secure Patient Vault"],
+    outcome: "Reduced patient processing time by automating workflow tasks and integrating diagnostic AI directly into the nurse terminal.",
     tags: ["AI", "Healthcare", "Next.js", "FastAPI"],
     icon: Hospital,
     color: "from-accent-cyan to-blue-600",
@@ -28,6 +35,9 @@ const projects = [
   {
     title: "ApnaResume",
     description: "Modern resume-building platform with smart analysis and professional templates for job seekers.",
+    challenge: "Job seekers struggle with ATS-compliant formatting and optimizing their content for specific engineering roles.",
+    architecture: ["Next.js App Router", "Tailwind Design System", "PDF Exporter", "ATS Analyzer Service"],
+    outcome: "Empowered hundreds of students to create high-impact, ATS-friendly resumes with zero design friction.",
     tags: ["Web App", "Frontend", "React", "Node.js"],
     icon: FileText,
     color: "from-blue-500 to-accent-cyan",
@@ -37,7 +47,15 @@ const projects = [
   }
 ];
 
-function ProjectCard({ project, i }: { project: typeof projects[0], i: number }) {
+function ProjectCard({ 
+  project, 
+  i, 
+  onOpen 
+}: { 
+  project: typeof projects[0], 
+  i: number, 
+  onOpen: () => void 
+}) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -103,30 +121,43 @@ function ProjectCard({ project, i }: { project: typeof projects[0], i: number })
           ))}
         </div>
 
-        <div className="flex gap-4">
-          <a 
-            href={project.github} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex-1 px-4 py-2 glass border-white/10 text-center text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
+            <a 
+              href={project.github} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex-1 px-4 py-2 glass border-white/10 text-center text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> Github
+            </a>
+            <a 
+              href={project.live} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex-1 px-4 py-2 glass border-white/10 text-center text-xs font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+            >
+              <ExternalLink size={14} /> Demo
+            </a>
+          </div>
+          
+          <button 
+            onClick={onOpen}
+            className="w-full py-2 bg-white text-black text-xs font-bold hover:bg-accent-cyan transition-colors flex items-center justify-center gap-2"
           >
-            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> Github
-          </a>
-          <a 
-            href={project.live} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex-1 px-4 py-2 bg-white text-black text-center text-xs font-bold hover:bg-accent-cyan transition-colors flex items-center justify-center gap-2"
-          >
-            <ExternalLink size={14} /> Demo
-          </a>
+            View Case Study
+            <ChevronRight size={14} />
+          </button>
         </div>
+
       </div>
     </motion.div>
   );
 }
 
 export default function ProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+
   return (
     <section id="projects" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -179,9 +210,23 @@ export default function ProjectsSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} i={i} />
+            <ProjectCard 
+              key={project.title} 
+              project={project} 
+              i={i} 
+              onOpen={() => setSelectedProject(project)}
+            />
           ))}
         </motion.div>
+
+        <AnimatePresence>
+          {selectedProject && (
+            <CaseStudyCard 
+              project={selectedProject} 
+              onClose={() => setSelectedProject(null)} 
+            />
+          )}
+        </AnimatePresence>
 
       </div>
     </section>

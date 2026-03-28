@@ -1,31 +1,45 @@
-import React from "react";
+"use client";
 
-type Props = {
-  title: string;
-  flow: string[];
-};
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 
-const ArchitectureDiagram = ({ title, flow }: Props) => {
+export default function ArchitectureDiagram({ 
+  steps, 
+  color 
+}: { 
+  steps: string[]; 
+  color: string;
+}) {
   return (
-    <div className="mt-6 border border-gray-800 rounded-xl p-6">
-
-      <h4 className="font-semibold mb-4">{title}</h4>
-
-      <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
-        {flow.map((step, index) => (
-          <React.Fragment key={index}>
-            <div className="px-4 py-2 border border-gray-700 bg-gray-900 rounded-lg">
-              {step}
+    <div className="relative py-4 space-y-6">
+      {steps.map((step, i) => (
+        <motion.div 
+          key={step}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: i * 0.15 }}
+          className="flex flex-col items-center"
+        >
+          <div className={`w-full p-4 glass border-white/10 hover:border-white/30 transition-all duration-300 rounded-xl flex items-center gap-4 group relative overflow-hidden bg-gradient-to-br from-white/5 to-transparent`}>
+            {/* Visual Indicator of Layer Number */}
+            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-[10px] font-bold text-white shadow-lg`}>
+              0{i + 1}
             </div>
-            {index < flow.length - 1 && (
-              <span className="text-gray-500 font-bold">→</span>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-
+            <span className="text-sm font-semibold tracking-wide text-gray-200 uppercase group-hover:text-white transition-colors">{step}</span>
+            <div className={`absolute inset-0 bg-gradient-to-r ${color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+          </div>
+          
+          {i < steps.length - 1 && (
+            <motion.div
+              animate={{ y: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="py-2 text-gray-600"
+            >
+              <ArrowDown size={16} />
+            </motion.div>
+          )}
+        </motion.div>
+      ))}
     </div>
   );
-};
-
-export default ArchitectureDiagram;
+}

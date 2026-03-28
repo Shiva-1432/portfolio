@@ -13,28 +13,25 @@ const highlights = [
   },
 ];
 
-import SectionWrapper from "../common/SectionWrapper";
-
-const Highlights = () => {
+export default function Highlights() {
   return (
-    <SectionWrapper>
-
-      <div className="grid md:grid-cols-3 gap-6">
-
+    <section className="py-20 max-w-7xl mx-auto px-6">
+      <div className="grid md:grid-cols-3 gap-8">
         {highlights.map((item, i) => (
           <div
             key={i}
-            className="border border-gray-800 rounded-xl p-6 hover:border-purple-500 transition"
+            className="glass p-8 group hover:border-accent-purple/50 transition-all duration-500"
           >
-            <h3 className="font-semibold text-lg">{item.title}</h3>
-            <p className="text-gray-400 mt-2 text-sm">{item.desc}</p>
+            <h3 className="text-xl font-bold tracking-tight mb-3 text-white">
+              {item.title}
+            </h3>
+            <p className="text-gray-400 text-sm leading-relaxed font-light">
+              {item.desc}
+            </p>
           </div>
         ))}
-
       </div>
-
-    </SectionWrapper>
+    </section>
   );
-};
+}
 
-export default Highlights;

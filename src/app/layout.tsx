@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/common/SmoothScrollProvider";
+import CustomCursor from "@/components/common/Cursor";
 
 export const metadata: Metadata = {
-  title: "Podishetty Shivakrishna | Cloud Native & AI Researcher",
-  description: "Personal portfolio of Podishetty Shivakrishna, showcasing projects in Cloud Computing, AI-driven DBMS optimization, and Frontend Development.",
+  title: "Podishetti Shiva Krishna | Cloud & AI Engineering Portfolio",
+  description: "Official portfolio of Podishetti Shiva Krishna. Computer Science student specializing in Cloud Native systems, AI-driven DBMS optimization, and high-performance Frontend development.",
+  keywords: ["Podishetti Shiva Krishna", "Cloud Engineer", "AI Researcher", "Next.js Portfolio", "Software Engineer"],
 };
 
 export default function RootLayout({
@@ -16,9 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-black text-white antialiased">
         <SmoothScrollProvider>
+          <CustomCursor />
           {children}
         </SmoothScrollProvider>
       </body>
     </html>
   );
 }
+
+
