@@ -110,12 +110,12 @@ export default function Navbar() {
         {/* Action Icons (Desktop) */}
         <div className="hidden md:flex items-center gap-3 pl-4 border-l border-white/10">
           <Magnetic strength={0.4}>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-white transition-colors">
+            <a href="https://github.com/Shiva-1432" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-white transition-colors">
               <GithubIcon />
             </a>
           </Magnetic>
           <Magnetic strength={0.4}>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-white transition-colors">
+            <a href="https://www.linkedin.com/in/podishetti-shiva-krishna-48978b333/" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-white transition-colors">
               <LinkedinIcon />
             </a>
           </Magnetic>
@@ -157,10 +157,10 @@ export default function Navbar() {
             ))}
             
             <div className="flex items-center gap-8 mt-12 pt-12 border-t border-white/10 w-1/2 justify-center">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
+              <a href="https://github.com/Shiva-1432" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
                 <GithubIcon />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/in/podishetti-shiva-krishna-48978b333/" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
                 <LinkedinIcon />
               </a>
             </div>
