@@ -32,7 +32,7 @@ const projects = [
     icon: FileText,
     color: "from-blue-500 to-accent-cyan",
     glow: "rgba(59, 130, 246, 0.4)",
-    github: "#",
+    github: "https://github.com/Shiva-1432/apnaresume.git",
     live: "#"
   }
 ];
