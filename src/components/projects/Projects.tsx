@@ -22,7 +22,7 @@ const projects = [
     icon: Hospital,
     color: "from-accent-cyan to-blue-600",
     glow: "rgba(34, 211, 238, 0.4)",
-    github: "#",
+    github: "https://github.com/Shiva-1432/medshift-AI.git",
     live: "#"
   },
   {
